@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr) {
+  function MainController($scope, $timeout, webDevTec, toastr) {
     var vm = this;
 
     vm.awesomeThings = [];
@@ -34,6 +34,10 @@
       angular.forEach(vm.awesomeThings, function(awesomeThing) {
         awesomeThing.rank = Math.random();
       });
+    }
+
+    $scope.isNavActive = function(viewLocation){
+        return viewLocation === $location.url();
     }
   }
 })();

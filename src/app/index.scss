@@ -5,6 +5,8 @@
 $navbar-inverse-link-color: #5AADBB;
 $icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
+$blue: #3873B3;
+
 /**
  *  Do not remove this comments bellow. It's the markers used by wiredep to inject
  *  sass dependencies when defined in the bower.json of your dependencies
@@ -33,3 +35,79 @@ $icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bo
  */
 // injector
 // endinjector
+
+//configurations globales
+body{
+  background-color: #f7f7f7;
+}
+.container{
+  background-color: #fff;
+  box-shadow: 0px 0px 15px #ddd;
+  margin-bottom: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+//configurations CV
+.cv{
+    .cv-name{
+      margin-left: 25px;
+    }
+    .cv-title{
+      font-style: italic;
+      color:  #ccc;
+      margin-left: 25px;
+    }
+
+    .contact-panel{
+      margin-top: 25px;
+    }
+
+    .blue-line{
+      display: inline-block;
+      background-color: $blue;
+      width: 15%;
+      height: 7px;
+      margin-top: 15px;
+      margin-right: 10px;
+      float:left;
+    }
+
+    h3{
+      color: $blue;
+    }
+
+    .panel-title a{
+      outline: none !important;
+      text-decoration: none ;
+    }
+
+    ul{
+      list-style-type: circle;
+    }
+    /* Surcharge boostrap */
+    .panel-heading, .panel{
+      background: white;
+      border : none;
+      box-shadow: none;
+    }
+    .panel-body{
+      border: none !important;
+    }
+    .block-container{
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 15px;
+    }
+    .block-left{
+      $margin-pct:2%;
+      min-width: 15% - $margin-pct;
+      color: $blue;
+      margin-right: $margin-pct;
+    }
+    .block-right{
+      min-width: 85%;
+    }
+
+}
