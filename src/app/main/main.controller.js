@@ -35,9 +35,5 @@
         awesomeThing.rank = Math.random();
       });
     }
-
-    $scope.isNavActive = function(viewLocation){
-        return viewLocation === $location.url();
-    }
   }
 })();

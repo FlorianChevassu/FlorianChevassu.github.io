@@ -6,6 +6,7 @@ $navbar-inverse-link-color: #5AADBB;
 $icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
 $blue: #3873B3;
+$clearblue: #8CAACA;
 
 /**
  *  Do not remove this comments bellow. It's the markers used by wiredep to inject
@@ -39,13 +40,90 @@ $blue: #3873B3;
 //configurations globales
 body{
   background-color: #f7f7f7;
+  margin-top: 50px;
 }
-.container{
+
+.fa{
+  margin-right: 3px;
+}
+
+.navbar-default{
+  .navbar-nav{
+    color: $blue;
+  }
+
+  .navbar-nav a{
+    color: $blue;
+    background-color: inherit !important;
+  }
+
+  // .navbar-nav .active a{
+  //   @extend .navbar-underline;
+  // }
+  .navbar-brand {
+    color: $blue;
+  }
+  .navbar-brand:hover, .navbar-brand:focus {
+    color: $blue;
+  }
+
+  .navbar-nav > li > a,
+  .navbar-nav > li > a:hover,
+  .navbar-nav > li > a:focus ,
+  .navbar-nav .active > a {
+    color: $blue;
+  }
+
+  /* Navbar underline effect*/
+  .navbar-underline{
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    overflow: hidden;
+  }
+  .navbar-underline:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    background: #2098d1;
+    height: 4px;
+    -webkit-transition-property: left, right;
+    transition-property: left, right;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .navbar-underline.active:before{
+    left: 10%;
+    right: 10%;
+  }
+  .navbar-underline:hover:before{
+    left: 0;
+    right: 0;
+  }
+}
+
+.page-content-background{
   background-color: #fff;
   box-shadow: 0px 0px 15px #ddd;
+  margin-top: 0px;
   margin-bottom: 0;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.page-content{
+  margin-top: 10px;
 }
 
 
@@ -62,6 +140,10 @@ body{
 
     .contact-panel{
       margin-top: 25px;
+      p{
+        text-align: left;
+      }
+        margin-right: 25px;
     }
 
     .blue-line{
