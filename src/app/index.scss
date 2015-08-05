@@ -5,8 +5,13 @@
 $navbar-inverse-link-color: #5AADBB;
 $icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
-$blue: #3873B3;
-$clearblue: #8CAACA;
+//$blue: #3873B3;
+$blue1: #206BA4;
+$blue2:	#BBD9EE;
+$blue3:	#EBF4FA;
+$blue4:	#C0C0C0;
+$blue5:	#E7E4D3;
+$blue6:	#F1EFE2;
 
 /**
  *  Do not remove this comments bellow. It's the markers used by wiredep to inject
@@ -38,40 +43,46 @@ $clearblue: #8CAACA;
 // endinjector
 
 //configurations globales
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700);
 body{
   background-color: #f7f7f7;
+  //background-image: url("../assets/images/tissus.png");
+  //background-repeat: repeat;
   margin-top: 50px;
+  font-family: 'Raleway', sans-serif;
 }
+
 
 .fa{
   margin-right: 3px;
 }
 
+/**
+*     NAVBAR
+*/
+
 .navbar-default{
   .navbar-nav{
-    color: $blue;
+    color: $blue1;
   }
 
   .navbar-nav a{
-    color: $blue;
+    color: $blue1;
     background-color: inherit !important;
   }
 
-  // .navbar-nav .active a{
-  //   @extend .navbar-underline;
-  // }
   .navbar-brand {
-    color: $blue;
+    color: $blue1;
   }
   .navbar-brand:hover, .navbar-brand:focus {
-    color: $blue;
+    color: $blue1;
   }
 
   .navbar-nav > li > a,
   .navbar-nav > li > a:hover,
   .navbar-nav > li > a:focus ,
   .navbar-nav .active > a {
-    color: $blue;
+    color: $blue1;
   }
 
   /* Navbar underline effect*/
@@ -113,6 +124,11 @@ body{
   }
 }
 
+
+/**
+*     Global styling
+*/
+
 .page-content-background{
   background-color: #fff;
   box-shadow: 0px 0px 15px #ddd;
@@ -126,8 +142,72 @@ body{
   margin-top: 10px;
 }
 
+.jumbotron{
+  //background-image: url("../assets/images/cpp_code.png");
+  background-color: $blue2;
+  h1{
+    color: $blue1;
+  }
+  h2{
+    margin-bottom: 40px;
+  }
+}
 
-//configurations CV
+
+/**
+*     Main style
+*/
+
+.blue-line{
+  display: inline-block;
+  background-color: $blue1;
+  width: 15%;
+  height: 7px;
+  margin-top: 15px;
+  margin-right: 10px;
+  float:left;
+}
+
+h3{
+  color: $blue1;
+}
+
+.block-container{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+}
+.block-left{
+  $margin-pct:2%;
+  min-width: 15% - $margin-pct;
+  color: $blue1;
+  margin-right: $margin-pct;
+}
+.block-right{
+  min-width: 85%;
+}
+ul{
+  list-style-type: circle;
+}
+
+.tags{
+  @extend .text-right;
+  li{
+    display:inline;
+    color: $blue1;
+  }
+  li::after{
+    content: ",";
+  }
+  li:last-child::after{
+    content: "";
+  }
+}
+
+
+/**
+*     CV
+*/
 .cv{
     .cv-name{
       margin-left: 25px;
@@ -146,50 +226,28 @@ body{
         margin-right: 25px;
     }
 
-    .blue-line{
-      display: inline-block;
-      background-color: $blue;
-      width: 15%;
-      height: 7px;
-      margin-top: 15px;
-      margin-right: 10px;
-      float:left;
-    }
-
-    h3{
-      color: $blue;
-    }
-
+    //disable underlining on section titles
     .panel-title a{
       outline: none !important;
       text-decoration: none ;
     }
 
-    ul{
-      list-style-type: circle;
-    }
     /* Surcharge boostrap */
     .panel-heading, .panel{
       background: white;
       border : none;
       box-shadow: none;
     }
+
     .panel-body{
       border: none !important;
+      padding-top: 0;
+      padding-bottom: 0;
     }
-    .block-container{
-      display: flex;
-      flex-direction: row;
-      margin-bottom: 15px;
-    }
-    .block-left{
-      $margin-pct:2%;
-      min-width: 15% - $margin-pct;
-      color: $blue;
-      margin-right: $margin-pct;
-    }
-    .block-right{
-      min-width: 85%;
+
+    h4{
+      margin-top: 0;
+      color: $blue1;
     }
 
 }
