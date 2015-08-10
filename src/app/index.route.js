@@ -42,33 +42,15 @@
       controllerAs: 'blog',
     });
 
-    $stateProvider.state('blog.posts', {
-      url: "/posts",
-      views: {
-        "first_blog_post": {
-          'templateUrl': 'app/blog/posts/first_blog_post.html'
-        },
-        "second_blog_post": {
-          'templateUrl': 'app/blog/posts/second_blog_post.html'
-        }
-      }
+    $stateProvider.state('blog.post', {
+      url: "/post/:id",
+      templateUrl: 'app/blog/blog.html',
     });
 
-    $stateProvider.state('blogPost', {
-      url: "/blog/post/:id",
-      templateUrl: function($stateParams){
-        return 'app/blog/posts/' + $stateParams.id + '.html';
-      },
-      controller: function($scope, $stateParams, blogService){
-        $scope.variable = 'VARIABLE';
-        $scope.posts = blogService.posts;
 
-        $scope.posts.forEach(function(element, index, array) {
-          if(element.route === $stateParams.id){
-            $scope.post = element;
-          }
-        });
-      }
+    $stateProvider.state('about', {
+      url: "/about",
+      templateUrl: 'app/about/about.html',
     });
 
     $urlRouterProvider.otherwise('/');

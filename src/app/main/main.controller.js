@@ -6,10 +6,12 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, $timeout, projectsService) {
+  function MainController($scope, $timeout, projectsService, blogService) {
     var vm = this;
 
     vm.projects = projectsService.getProjects();
+    vm.posts = blogService.posts;
+    vm.nbBlogPostShown = 10;
 
   }
 })();

@@ -124,6 +124,10 @@ body{
   }
 }
 
+post{
+  font-size: 130%;
+}
+
 
 /**
 *     Global styling
@@ -144,7 +148,7 @@ body{
 
 .jumbotron{
   //background-image: url("../assets/images/cpp_code.png");
-  background-color: $blue2;
+  //background-color: $blue2;
   h1{
     color: $blue1;
   }
@@ -195,6 +199,7 @@ ul{
   li{
     display:inline;
     color: $blue1;
+    font-size: 90%;
   }
   li::after{
     content: ",";
