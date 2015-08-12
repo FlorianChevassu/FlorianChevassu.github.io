@@ -17,6 +17,12 @@
                         "</div>"+
                         "<div class='transclude-element' ng-transclude></div>"+
                       "</div>"+
+                      "<nav ng-show='{{showPager()}}'>"+
+                        "<ul class='pager'>"+
+                          "<li class='previous' ng-show='{{getPreviousPostLink().length > 0}}'><a ng-href='{{getPreviousPostLink()}}'><span aria-hidden='true'>&larr;</span> Previous</a></li>"+
+                          "<li class='next' ng-show='{{getNextPostLink().length > 0}}'><a ng-href='{{getNextPostLink()}}'>Next <span aria-hidden='true'>&rarr;</span></a></li>"+
+                        "</ul>"+
+                      "</nav>"+
                     "</div>",
           link: function(scope, element, attrs) {
             if(attrs.title){

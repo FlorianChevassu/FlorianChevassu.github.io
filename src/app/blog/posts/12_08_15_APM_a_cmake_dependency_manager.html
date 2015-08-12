@@ -1,21 +1,38 @@
-Today I want to present you one of my recent side projects : a package manager with codename 'APM' (it stands for 'Another Package Manager'... If you're inspired, I'm open to new name propositions!).
+<div class="cv">
+  <post title="APM - A pure CMake package manager" tags="C++, CMake">
+    <p>
+      Today I want to present you one of my recent side projects : a package manager with codename 'APM' (APM stands for 'Another Package Manager'... If you're inspired, I'm open to new name propositions!).
+    </p>
 
-APM is written in pure CMake, without any dependencies. To use it, just include APM.cmake in your main CMakeLists.txt. "Requiring" a package should feel natural to all CMake developers, as it uses a signature comparable to the "find_package" CMake function. Here is an example requiring Boost:
+    <p>
+      APM is written in pure CMake, without any other dependency. To use it, just include the APM.cmake script in your main CMakeLists.txt. "Requiring" a package should feel natural to all CMake developers, as it uses a signature comparable to the "find_package" CMake function. Here is an example requiring Boost:
+    </p>
 
-require(Boost VERSION 1.57.0 TARGETS MyTarget COMPONENTS filesystem system)
+    <pre>require(Boost VERSION 1.57.0 TARGETS MyTarget COMPONENTS filesystem system)</pre>
 
-You see, nothing special here ! This line just tells APM to find boost in version 1.57.0, and configure the target 'MyTarget' to use boost with components 'system' and 'filesystem'. If boost is not found, the user will be able to ask for its installation or provide the boost root directory to help APM find it.
+    <p>
+      You see, nothing special here. This line just tells APM to find boost in version 1.57.0, and configure the target 'MyTarget' to use boost with components 'system' and 'filesystem'. If boost is not found, the user will have to either ask for installation (via a CACHE variable) or specify the root directory of the Boost package installation.
+    </p>
 
-Of course, there is no magic here, APM needs to be configured to do such things. In this post, I will describe in detail how APM works, and how to extend it to allow users to require other packages.
+    <p>
+      Of course, there is no magic here, APM needs to be configured to do such things. In this post, I will describe in detail how APM works, and how to extend it to allow users to require other packages.
+    </p>
 
-## Basic presentation
+    <h1>Basic concepts</h1>
 
-### APM modules
+    <h2>APM modules</h2>
 
-Package providers need to provide a CMake script named "APM_${moduleName}.cmake" (We're calling it an "APM module"). This module need to implement a set of functions that APM will use to find a package, install a package, or configure a target to use a package.
+    Package providers need to provide a CMake script named "APM_${packageName}.cmake" (We're calling it an "APM module"). This module need to implement a set of functions that APM will use to find a package, install a package, or configure a target to use a package.
 
-### APM repositories
+    <h2>APM repositories</h2>
 
-Modules and packages are stored in "APM repositories". These repositories are just folders with a particular structure that APM will use to find a module, find or install a package.
+    Modules and packages are stored in "APM repositories". These repositories are just folders with a particular structure that APM will use to find/install a module/package.
 
-## In-depth presentation
+    <h2>APM packages</h2>
+
+    An APM package represent an actual external project that can be required by APM users (like the Boost package in our example).
+
+    <h1>In-depth presentation</h1>
+
+  </post>
+</div>

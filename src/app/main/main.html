@@ -23,15 +23,15 @@
   <div class="col-md-12">
     <h2>Recent blog posts</h2>
   </div>
-  <div class="col-md-6" ng-repeat="post in vm.posts | limitTo:nbBlogPostShown">
+  <div class="col-md-6" ng-repeat="post in vm.posts | orderBy:'-date' | limitTo:nbBlogPostShown">
     <div class="well">
       <!-- <img class="pull-right" ng-src="assets/images/amanite_template_engine_logo.png" alt="Amanite template engine"> -->
       <div class="caption">
         <div ng-hide="true" ng-include src="post.raw_url"></div>
-        <h3><a ng-href="#/blog/post/{{post.route}}">{{post.title}}</a></h3>
+        <h3><a ng-href="#/blog/{{post.url}}">{{post.title}}</a></h3>
         <h4>{{post.tags.join(',')}}</h4>
         <p>{{post.snippet}}</p>
-        <a ng-href="#/blog/post/{{post.route}}">see more</a>
+        <a ng-href="#/blog/{{post.url}}">see more</a>
       </div>
     </div>
   </div>

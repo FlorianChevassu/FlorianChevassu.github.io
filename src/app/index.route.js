@@ -36,16 +36,17 @@
     });
 
     $stateProvider.state('blog', {
-      url: "/blog",
+      url: "/blog/:id",
       templateUrl: 'app/blog/blog.html',
       controller: 'BlogController',
       controllerAs: 'blog',
     });
 
-    $stateProvider.state('blog.post', {
-      url: "/post/:id",
-      templateUrl: 'app/blog/blog.html',
-    });
+    // $stateProvider.state('blog.post', {
+    //   url: "/post/:id",
+    //   templateUrl: 'app/blog/blog.html',
+    //   controller: 'BlogController',
+    // });
 
 
     $stateProvider.state('about', {

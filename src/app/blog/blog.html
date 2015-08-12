@@ -5,8 +5,6 @@
       <h2 class="cv-title">A blog about my day to day programming</h2>
     </div>
   </div>
-
-  <div ng-repeat="post in posts | orderBy : '-date'" ng-include src="post.raw_url">
+  <div ng-repeat="post in posts | filter:blogPostFilter | orderBy:'-date'" ng-include src="post.raw_url">
   </div>
-
 </div>
