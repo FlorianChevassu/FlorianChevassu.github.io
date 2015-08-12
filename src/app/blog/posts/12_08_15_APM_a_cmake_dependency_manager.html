@@ -1,0 +1,21 @@
+Today I want to present you one of my recent side projects : a package manager with codename 'APM' (it stands for 'Another Package Manager'... If you're inspired, I'm open to new name propositions!).
+
+APM is written in pure CMake, without any dependencies. To use it, just include APM.cmake in your main CMakeLists.txt. "Requiring" a package should feel natural to all CMake developers, as it uses a signature comparable to the "find_package" CMake function. Here is an example requiring Boost:
+
+require(Boost VERSION 1.57.0 TARGETS MyTarget COMPONENTS filesystem system)
+
+You see, nothing special here ! This line just tells APM to find boost in version 1.57.0, and configure the target 'MyTarget' to use boost with components 'system' and 'filesystem'. If boost is not found, the user will be able to ask for its installation or provide the boost root directory to help APM find it.
+
+Of course, there is no magic here, APM needs to be configured to do such things. In this post, I will describe in detail how APM works, and how to extend it to allow users to require other packages.
+
+## Basic presentation
+
+### APM modules
+
+Package providers need to provide a CMake script named "APM_${moduleName}.cmake" (We're calling it an "APM module"). This module need to implement a set of functions that APM will use to find a package, install a package, or configure a target to use a package.
+
+### APM repositories
+
+Modules and packages are stored in "APM repositories". These repositories are just folders with a particular structure that APM will use to find a module, find or install a package.
+
+## In-depth presentation
