@@ -5,7 +5,7 @@
     </p>
 
     <p>
-      APM is written in pure CMake, without any other dependency. To use it, just include the APM.cmake script in your main CMakeLists.txt. "Requiring" a package should feel natural to all CMake developers, as it uses a signature comparable to the "find_package" CMake function. Here is an example requiring Boost:
+      APM is written in pure CMake, without any other dependency. It aims to be simple, and to stay simple. To use it, just include the APM.cmake script in your main CMakeLists.txt. "Requiring" a package should feel natural to all CMake developers, as it uses a signature comparable to the "find_package" CMake function. Here is an example requiring Boost:
     </p>
 
     <pre>require(Boost VERSION 1.57.0 TARGETS MyTarget COMPONENTS filesystem system)</pre>
@@ -15,22 +15,33 @@
     </p>
 
     <p>
-      Of course, there is no magic here, APM needs to be configured to do such things. In this post, I will describe in detail how APM works, and how to extend it to allow users to require other packages.
+      Of course, there is no magic, APM needs to be configured to do such things. In this post, I will describe in detail how APM works, and how to extend it to allow users to require other packages.
     </p>
 
     <h1>Basic concepts</h1>
 
+    APM aims to be (and to stay) simple. Its implementation is based on some simple key concepts :
+
     <h2>APM modules</h2>
 
-    Package providers need to provide a CMake script named "APM_${packageName}.cmake" (We're calling it an "APM module"). This module need to implement a set of functions that APM will use to find a package, install a package, or configure a target to use a package.
-
-    <h2>APM repositories</h2>
-
-    Modules and packages are stored in "APM repositories". These repositories are just folders with a particular structure that APM will use to find/install a module/package.
+    Package providers need to provide a CMake script named "APM_${packageName}.cmake", refered as an "APM module". This module needs to implement a set of functions that APM will use to find a package, install a package, or configure a target to use a package.
+    APM modules are installed in an <a href="" ng-click="scrollTo('APM_module_repositories')">APM module repository</a>.
 
     <h2>APM packages</h2>
 
-    An APM package represent an actual external project that can be required by APM users (like the Boost package in our example).
+    An APM package represent an actual external project that can be required by APM users, like Boost in our example. A package is stored in a package <a href="" ng-click="scrollTo('APM_repositories')">repository</a> way that allows it to manage dfferent versions of the library, and different binaries built with different compilers or for different architectures.
+
+    <h2 id="APM_module_repositories">APM module repositories</h2>
+
+    <p>
+      APM module repositories are folders where APM will install and search for modules.<br>
+      Modules are installed with the <a href="" ng-click="scrollTo('APM_install_module')">APM_install_module</a> function.
+    </p>
+
+    <h2 id="APM_package_repositories">APM package repositories</h2>
+
+    Modules and packages are stored in "APM repositories". These repositories are just folders with a particular structure that APM will use to find/install a module/package.
+
 
     <h1>In-depth presentation</h1>
 

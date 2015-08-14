@@ -6,7 +6,7 @@
     .controller('BlogController', BlogController);
 
   /** @ngInject */
-  function BlogController($scope, blogService, $location, $stateParams) {
+  function BlogController($scope, blogService, $location, $stateParams, $anchorScroll) {
     $scope.posts = blogService.posts;
     $scope.isOnBlogIndex = function(){
       return $location.path() === "/blog";
@@ -42,5 +42,13 @@
         return "#/blog/" + item.url;
       }
     }
+
+    $scope.scrollTo = function(id) {
+      var old = $location.hash();
+      $location.hash(id);
+      $anchorScroll();
+      //reset to old to keep any additional routing logic from kicking in
+      $location.hash(old);
+    };
   }
 })();

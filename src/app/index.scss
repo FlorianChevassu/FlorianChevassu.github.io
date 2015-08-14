@@ -125,7 +125,24 @@ body{
 }
 
 post{
-  font-size: 130%;
+  font-size: 100%;
+}
+
+post .transclude-element h1{
+  color: $blue1;
+  font-size: 1.5em;
+}
+post .transclude-element h2{
+  color: $blue1;
+  font-size: 1.17em;
+}
+post .transclude-element   h3{
+  color: $blue1;
+  font-size: 0.87em;
+}
+.scrolledTo{
+  color: blue;
+  transition: color 2s;
 }
 
 

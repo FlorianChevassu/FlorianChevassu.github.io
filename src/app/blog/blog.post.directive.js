@@ -35,7 +35,7 @@
               scope.post.route = attrs.route;
             }
             //
-            scope.post.snippet = element.find(".transclude-element")[0].innerText.substr(0,400).concat("...");
+            scope.post.snippet = element.find(".transclude-element")[0].textContent.substr(0,400).concat("...");
           }
       };
   });
