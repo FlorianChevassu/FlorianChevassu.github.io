@@ -9,41 +9,49 @@
   </p>
 </div> -->
 
-
-<div class="jumbotron">
-  <h1>I'm a C++ engineer searching for a new job in Lyon - France</h1>
-  <div>
-    <p>If you have a job opportunity where I could embrace my C++ passion, contact me!</p>
-    <p>For more information, check my (French) <a href="#/cv">resume</a>!</p>
+<div class="page-section row">
+  <div class="jumbotron col-md-12 col-xs-12 col-sm-12 ">
+    <h1>I'm a C++ developer searching for a new job in Lyon - France</h1>
+    <div>
+      <p>If you have a job opportunity that may interest me, don't hesitate to <a href="mailto:chevassu.florian@gmail.com?subject=Job opportunity" class="link">contact me</a>.</p>
+      <p>For more information, check my (French) <a href="#/cv" class="link">resume</a>!</p>
+        <!-- <p>If you have a job opportunity where I could embrace my C++ passion, contact me!</p>
+        <p>For more information, check my (French) <a href="#/cv" class="link">resume</a>!</p> -->
+    </div>
   </div>
 </div>
 
-<div class="row"  ng-controller="MainController as vm">
+<div ng-controller="MainController as vm">
 
-  <div class="col-md-12">
-    <h2>Recent blog posts</h2>
-  </div>
-  <div class="col-md-6" ng-repeat="post in vm.posts | orderBy:'-date' | limitTo:nbBlogPostShown">
-    <div class="well">
-      <!-- <img class="pull-right" ng-src="assets/images/amanite_template_engine_logo.png" alt="Amanite template engine"> -->
-      <div class="caption">
-        <div ng-hide="true" ng-include src="post.raw_url"></div>
-        <h3><a ng-href="#/blog/{{post.url}}">{{post.title}}</a></h3>
-        <h4>{{post.tags.join(',')}}</h4>
-        <p>{{post.snippet}}</p>
-        <a ng-href="#/blog/{{post.url}}">see more</a>
+  <div class="page-section row">
+    <div class="col-md-12 col-xs-12 col-sm-12 sectionTitle">
+      <h2>Recent blog posts</h2>
+    </div>
+    <div class="col-md-6 col-xs-12 col-sm-12 " ng-repeat="post in vm.posts | orderBy:'-date' | limitTo:nbBlogPostShown">
+      <div class="well">
+        <!-- <img class="pull-right" ng-src="assets/images/amanite_template_engine_logo.png" alt="Amanite template engine"> -->
+        <div class="caption">
+          <div ng-hide="true" ng-include src="post.raw_url"></div>
+          <h3><a ng-href="#/blog/{{post.url}}">{{post.title}}</a></h3>
+          <h4>{{post.date | date:'dd-MM-yyyy'}}</h4>
+          <span ng-repeat="tag in post.tags" class="tagBadge">{{tag}}</span>
+          <p>{{post.snippet}}</p>
+          <a ng-href="#/blog/{{post.url}}" class="seeMoreLink pull-right">see more</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="col-md-12">
-    <h2>Projects</h2>
-  </div>
-  <div class="col-md-6" ng-repeat="project in vm.projects">
-    <div class="thumbnail well">
-      <div class="caption">
-        <h3><a ng-href="{{project.url}}">{{project.title}}</a></h3>
-        <p>{{project.description}}</p>
+  <div class="page-section row">
+    <div class="col-md-12 col-xs-12 col-sm-12  sectionTitle">
+      <h2>Projects</h2>
+    </div>
+    <div class="col-md-6 col-xs-12 col-sm-12 " ng-repeat="project in vm.projects">
+      <div class="thumbnail well">
+        <div class="caption">
+          <h3><a ng-href="{{project.url}}">{{project.title}}</a></h3>
+          <p>{{project.description}}</p>
+        </div>
       </div>
     </div>
   </div>

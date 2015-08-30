@@ -13,6 +13,10 @@ $blue4:	#C0C0C0;
 $blue5:	#E7E4D3;
 $blue6:	#F1EFE2;
 
+$gray1:	#F8F8F8;
+
+$orange1:	#FF6223;
+
 /**
  *  Do not remove this comments bellow. It's the markers used by wiredep to inject
  *  sass dependencies when defined in the bower.json of your dependencies
@@ -45,9 +49,7 @@ $blue6:	#F1EFE2;
 //configurations globales
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700);
 body{
-  background-color: #f7f7f7;
-  //background-image: url("../assets/images/tissus.png");
-  //background-repeat: repeat;
+  background-color: $blue3;//#f7f7f7;
   margin-top: 50px;
   font-family: 'Raleway', sans-serif;
 }
@@ -61,28 +63,36 @@ body{
 *     NAVBAR
 */
 
+.navbar-toggle span,
+.navbar-toggle:hover span,
+.navbar-toggle .active span
+{
+  color: $gray1 !important;
+}
+
 .navbar-default{
+  background-color: $blue1;
   .navbar-nav{
     color: $blue1;
   }
 
   .navbar-nav a{
-    color: $blue1;
+    color: $gray1;
     background-color: inherit !important;
   }
 
   .navbar-brand {
-    color: $blue1;
+    color: $gray1;
   }
   .navbar-brand:hover, .navbar-brand:focus {
-    color: $blue1;
+    color: $gray1;
   }
 
   .navbar-nav > li > a,
   .navbar-nav > li > a:hover,
   .navbar-nav > li > a:focus ,
   .navbar-nav .active > a {
-    color: $blue1;
+    color: $gray1 !important;
   }
 
   /* Navbar underline effect*/
@@ -105,8 +115,8 @@ body{
     left: 50%;
     right: 50%;
     bottom: 0;
-    background: #2098d1;
-    height: 4px;
+    background: #FF6223;
+    height: 6px;
     -webkit-transition-property: left, right;
     transition-property: left, right;
     -webkit-transition-duration: 0.3s;
@@ -121,6 +131,23 @@ body{
   .navbar-underline:hover:before{
     left: 0;
     right: 0;
+  }
+  .navbar-toggle{
+    border-color: white;
+    .icon-bar {
+      background-color: white;
+    }
+  }
+  // .navbar-toggle :focus{
+  //   background-color: white;
+  // }
+  .navbar-toggle:hover, .navbar-toggle:focus {
+    background-color: inherit !important;
+
+    border-color: white;
+    .icon-bar {
+      background-color: white;
+    }
   }
 }
 
@@ -151,8 +178,6 @@ post .transclude-element   h3{
 */
 
 .page-content-background{
-  background-color: #fff;
-  box-shadow: 0px 0px 15px #ddd;
   margin-top: 0px;
   margin-bottom: 0;
   padding-left: 15px;
@@ -165,13 +190,25 @@ post .transclude-element   h3{
 
 .jumbotron{
   //background-image: url("../assets/images/cpp_code.png");
-  //background-color: $blue2;
+  background-color: inherit;
+  border: 1px solid #EEE;
+  margin-bottom: 10px;
+  border: 0px;
   h1{
     color: $blue1;
   }
   h2{
     margin-bottom: 40px;
   }
+}
+
+.well{
+  background-color: inherit;
+  border: 1px solid #EEE;
+}
+
+.orangeTag{
+  color: $orange1;
 }
 
 
@@ -211,11 +248,25 @@ ul{
   list-style-type: circle;
 }
 
-.tags{
+.tagBadge{
   @extend .text-right;
+  @extend .badge;
+  background-color: $orange1;
+  font-size: 1.1em;
+  font-weight: normal;
+  margin: 1px;
+  border-radius: 4px;
+}
+
+.cv .tagBadge a{
+  color: white;
+}
+
+.tags{
+  @extend .text-left;
   li{
     display:inline;
-    color: $blue1;
+    color: $orange1;
     font-size: 90%;
   }
   li::after{
@@ -226,11 +277,39 @@ ul{
   }
 }
 
+.page-section{
+  background-color: #fff;
+  box-shadow: 0px 0px 15px #ddd;
+  margin-bottom: 15px;
+}
+
+.sectionTitle{
+  background-color: $blue1;
+  color: $gray1;
+  vertical-align: middle;
+
+
+  > h2{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  border-bottom: 4px solid $orange1;
+  margin-bottom: 10px;
+
+}
+
+
+
 
 /**
 *     CV
 */
 .cv{
+
+    background-color: #fff;
+    box-shadow: 0px 0px 15px #ddd;
+
     .cv-name{
       margin-left: 25px;
     }
@@ -271,5 +350,67 @@ ul{
       margin-top: 0;
       color: $blue1;
     }
+}
 
+
+/**
+*     Blog
+*/
+.blog{
+    background-color: #fff;
+    box-shadow: 0px 0px 15px #ddd;
+
+    .blog-name{
+      margin-left: 25px;
+    }
+    .blog-title{
+      font-style: italic;
+      color:  #ccc;
+      margin-left: 25px;
+    }
+    .blog-post{
+      margin-right: 10px;
+    }
+
+    .contact-panel{
+      margin-top: 25px;
+      p{
+        text-align: left;
+      }
+        margin-right: 25px;
+    }
+
+    //disable underlining on section titles
+    .panel-title a{
+      outline: none !important;
+      text-decoration: none ;
+    }
+
+    /* Surcharge boostrap */
+    .panel-heading, .panel{
+      background: white;
+      border : none;
+      box-shadow: none;
+    }
+
+    .panel-body{
+      border: none !important;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    h4{
+      margin-top: 0;
+      color: $blue1;
+    }
+}
+
+.link, .link:hover{
+  color: $orange1;
+}
+
+
+.seeMoreLink, .seeMoreLink:hover{
+  color: $orange1;
+  font-weight: bold;
 }

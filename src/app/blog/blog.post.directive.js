@@ -11,8 +11,9 @@
                       "<h3>{{post.title}}</h3>"+
                       "<div class='block-container'>"+
                         "<div class='block-left'>"+
-                          "<div ng-repeat='tag in post.tags'>"+
-                            "<h4 class='text-right'>{{tag}}</h4>"+
+                          "<h4 class='text-right'>{{post.date | date:'dd-MM-yyyy'}}</h4>"+
+                          "<div>"+
+                            "<h4 class='text-right tagBadge' ng-repeat='tag in post.tags'><a ng-click='filterTags(tag)'>{{tag}}</a></h4>"+
                           "</div>"+
                         "</div>"+
                         "<div class='transclude-element' ng-transclude></div>"+
