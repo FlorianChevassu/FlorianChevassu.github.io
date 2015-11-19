@@ -1,49 +1,160 @@
 <div class="blog-post">
   <post title="APM - A pure CMake package manager" tags="C++, CMake">
     <p>
-      Today I want to present you one of my recent side projects : a package manager with codename 'APM' (APM stands for 'Another Package Manager'... If you're inspired, I'm open to new name propositions!).
+      Today I want to present you one of my recent side projects : a package manager with codename <a href="https://github.com/FlorianChevassu/APM" target="_blank">APM</a> (APM stands for 'Another Package Manager'... If you're inspired, I'm open to new name propositions!).
     </p>
 
     <p>
-      APM is written in pure CMake, without any other dependency. It aims to be simple, and to stay simple. To use it, just include the APM.cmake script in your main CMakeLists.txt. "Requiring" a package should feel natural to all CMake developers, as it uses a signature comparable to the "find_package" CMake function. Here is an example requiring Boost:
-    </p>
-
-    <pre>require(Boost VERSION 1.57.0 TARGETS MyTarget COMPONENTS filesystem system)</pre>
-
-    <p>
-      You see, nothing special here. This line just tells APM to find boost in version 1.57.0, and configure the target 'MyTarget' to use boost with components 'system' and 'filesystem'. If boost is not found, the user will have to either ask for installation (via a CACHE variable) or specify the root directory of the Boost package installation.
+      APM is written in pure CMake, without any other dependency. It aims to be simple, and to stay simple. To use it, just include the APM.cmake script in your main CMakeLists.txt.
     </p>
 
     <p>
-      Of course, there is no magic, APM needs to be configured to do such things. In this post, I will describe in detail how APM works, and how to extend it to allow users to require other packages.
+      The APM API is designed to sound familiar to CMake developers. In fact, the core APM functionality can be resumed to one function called "require_package" that provides a way to... require packages. By "requiring" a package, you ask APM to handle everything concerning that package for you. That means searching, donwloading, compiling, and configuring targets for using this package.
     </p>
 
-    <h1>Basic concepts</h1>
 
-    APM aims to be (and to stay) simple. Its implementation is based on some simple key concepts :
-
-    <h2>APM modules</h2>
-
-    Package providers need to provide a CMake script named "APM_${packageName}.cmake", refered as an "APM module". This module needs to implement a set of functions that APM will use to find a package, install a package, or configure a target to use a package.
-    APM modules are installed in an <a href="" ng-click="scrollTo('APM_module_repositories')">APM module repository</a>.
-
-    <h2>APM packages</h2>
-
-    An APM package represent an actual external project that can be required by APM users, like Boost in our example. A package is stored in a package <a href="" ng-click="scrollTo('APM_repositories')">repository</a> way that allows it to manage dfferent versions of the library, and different binaries built with different compilers or for different architectures.
-
-    <h2 id="APM_module_repositories">APM module repositories</h2>
+    <h1>A simple example</h1>
 
     <p>
-      APM module repositories are folders where APM will install and search for modules.<br>
-      Modules are installed with the <a href="" ng-click="scrollTo('APM_install_module')">APM_install_module</a> function.
+      For example, if you want to use boost in your project, you only have to write one line in your CMakeLists.txt file :
+      <pre>require(Boost VERSION 1.59.0 TARGETS Target1 Target2 COMPONENTS filesystem system)</pre>
     </p>
 
-    <h2 id="APM_package_repositories">APM package repositories</h2>
+    <p>
+      This tells APM to search for a boost installation in version 1.59.0. If it does not find one, it will either :
+      <ul>
+        <li>
+          ask the user to provide the installation path of boost;
+        </li>
+        <li>
+          or ask the user if he wants to install boost.
+        </li>
+      </ul>
+      If The user ask for a fresh installation, boost will be downloaded and the required components will be compiled.
+      Once a valid boost version is found or installed, APM will configure the given targets to use it.
+    </p>
 
-    Modules and packages are stored in "APM repositories". These repositories are just folders with a particular structure that APM will use to find/install a module/package.
+    <p>
+      Just a simple call, for a simple thing.
+    </p>
 
+    <h1>So, how does it work ?</h1>
 
-    <h1>In-depth presentation</h1>
+    <p>
+      APM is composed of only a few lines of code handling the core principles of the package management. All the package specific stuff is delegated to the "APM modules".
+    </p>
 
+    <p>
+      The APM modules have to expose a bunch of functions that will be used by APM :
+      <ul>
+        <li>
+          <code>check_package_compatibility(result [DETAILS details])</code> :
+          <ul>
+            <li>
+              <code>result</code> : Output boolean parameter set to <code>TRUE</code> if the package is compatible with current CMake and compiler version, and to <code>FALSE</code> otherwise.
+            </li>
+            <li>
+              <code>details</code> : Output string parameter representing the reason why the compatibility is not assured. Optional.
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <code>get_compatible_package_version_root(package_root version result [EXACT])</code> :
+          <ul>
+            <li>
+              <code>package_root</code> : Input string parameter representing the root path of the package.
+            </li>
+            <li>
+              <code>version</code> : Input string parameter representing the version required.
+            </li>
+            <li>
+              <code>result</code> : Output string parameter representing the path of the found version. If no versions are found, leave the parameter unset.
+            </li>
+            <li>
+              <code>EXACT</code> : Optional option parameter. If specified, the version will have to be the exact same one. Otherwise, it is the responsibility of the module to decide if a version is compatible or not.
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <code>download_package_version(package_root result version) // TODO : put the result variable at the end...</code> :
+          <ul>
+            <li>
+              <code>package_root</code> : Input string parameter representing the root path of the package.
+            </li>
+            <li>
+              <code>result</code> : Output boolean parameter set to <code>TRUE</code> if the download went well, <code>FALSE</code> otherwise.
+            </li>
+            <li>
+              <code>version</code> : Input string parameter representing the version required.
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <code>package_version_need_compilation(root result [COMPONENTS components...])</code> :
+          <ul>
+            <li>
+              <code>root</code> : Input string parameter representing the root path of the version.
+            </li>
+            <li>
+              <code>result</code> : Output boolean parameter set to <code>TRUE</code> if the version need to be compiled, <code>FALSE</code> otherwise.
+            </li>
+            <li>
+              <code>components...</code> : Input string collection parameter representing the required components. Optional.
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <code>compile_package_version(root result [COMPONENTS components...] )</code> :
+          <ul>
+            <li>
+              <code>root</code> : Input string parameter representing the root path of the version.
+            </li>
+            <li>
+              <code>result</code> : Output boolean parameter set to <code>TRUE</code> if the version has been successfully compiled, <code>FALSE</code> otherwise.
+            </li>
+            <li>
+              <code>components...</code> : Input string collection parameter representing the required components. Optional.
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <code>configure_package_version(root TARGETS targets... [COMPONENTS components...] [FILES_TO_INCLUDE files...])</code> :
+          <ul>
+            <li>
+              <code>root</code> : Input string parameter representing the root path of the version.
+            </li>
+            <li>
+              <code>targets...</code> : Input string collection parameter representing the targets to configure. Optional. If not set, configuration will be global.
+            </li>
+            <li>
+              <code>components...</code> : Input string collection parameter representing the required components. Optional.
+            </li>
+            <li>
+              <code>files...</code> : Output string collection parameterlisting the CMake files that need to be included.
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      Some of these functions are not mandatory. For example, if <code>package_version_need_compilation</code> never return <code>TRUE</code>, the implementation of <code>compile_package_version</code> is not needed.
+    </p>
+    <p>
+      By delegating this work to modules, APM can be generic enough to adapt to nearly anything. For example, APM can be used to "require" CMake extensions, like for the <a href="https://github.com/FlorianChevassu/APM_FileInformation" target="_blank">FileInformation</a> module. Or it could be used to "require" GIT, or Doxygen, or some statis analyzer.
+    </p>
+
+    <h1>What's next ?</h1>
+
+    <p>
+      This is a work in progress, the API described here might change at any time. So, the first thing is to stabilize the API, and ensure it won't break every morning. Once that we have a stable API, we will start implementing new packages. The goal is to have a library similar to what's available in biicode right now.
+    </p>
+
+    <p>
+      You may have noticed that I said "we" here. That's because I'm open to contributions of any kind. Would it be pull requests, moral support, or even coffee. So If you want to contribute, or even if you want to make some remarks on what I've done, just let me know !
+    </p>
   </post>
 </div>

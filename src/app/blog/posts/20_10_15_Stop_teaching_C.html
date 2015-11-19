@@ -1,0 +1,31 @@
+<div class="blog-post">
+  <post title="CppCon 2015: Kate Gregory - 'Stop Teaching C'" tags="C++, CppCon">
+    <p>
+      The annual CppCon conference landed this year from September 25th to September 29th. Since then, I try to find some time to watch videos of the presentations.
+    </p>
+    <p>
+      One <a href="https://www.youtube.com/watch?v=YnWhqhNdYyk" target="_blank">video</a> attracted my intention. In this video, Kate Gregory explains why you should 'Stop teaching C' as a pre-requisite to a C++ course. I can not less agree with her on this point...
+    </p>
+    <p>
+      Unfortunately, C++ is known as a <em>hard to learn</em> language, and this reputation is in fact true if you learn it the hard way. So if you have to teach C++, start by presenting higher level C++. When your students have understood high-level C++ basics, learn them how to do the low level things.
+    </p>
+
+    <p>
+      For example, here is a list a things you should avoid in a 'day 1' beginner course :
+
+      <ul>
+        <li>
+          <code>char*</code> strings : If you use C-style strings, you'll have to explain what pointers are, and present the tricky str* functions. Just use <code>std::string</code> as if it were a standard type.
+        </li>
+        <li>
+          <code>printf</code> style formatting : Just use iostreams. The performance is not so important when beginning C++.
+        </li>
+        <li>
+          C-style arrays : As with C-style strings, this bring pointers on the table far too soon. Just use <code>std::vector</code>s.
+        </li>
+      </ul>
+
+      In conclusion, just avoid using low level C-style features if you can do it using high-level C++ features. Kate went far further, so if you're interested, go watch the CppCon <a href="https://www.youtube.com/watch?v=YnWhqhNdYyk" target="_blank">video</a>, or even listen to the <a href="http://cppcast.com/2015/10/kate-gregory/" target="_blank">CppCast</a> episode !
+    </p>
+  </post>
+</div>
